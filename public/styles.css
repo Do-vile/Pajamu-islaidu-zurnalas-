@@ -31,70 +31,89 @@ a {
 
 .app-shell {
     min-height: 100vh;
-    display: flex;
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
 
-.sidebar {
-    width: 260px;
-    background: #0f172a;
-    color: #fff;
+.topbar {
     display: flex;
-    flex-direction: column;
-    padding: 32px 24px;
-    gap: 32px;
+    align-items: center;
+    gap: 18px;
+    padding: 20px clamp(16px, 4vw, 56px) 0;
 }
 
 .brand {
     font-weight: 700;
     line-height: 1.4;
+    white-space: nowrap;
 }
 
 .nav {
-    display: grid;
+    display: flex;
     gap: 8px;
 }
 
 .nav-link {
-    display: block;
-    padding: 12px 14px;
-    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.86);
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
+.nav--pills {
+    flex-wrap: wrap;
 }
 
-.nav-link.active {
+.nav-link--pill {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1.5px solid #d9e2f2;
     background: #fff;
-    color: #0f172a;
-    font-weight: 600;
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
 }
 
-.sidebar-footer {
-    margin-top: auto;
-    display: grid;
-    gap: 8px;
+.nav-link--pill:hover {
+    border-color: #c7d5eb;
+    transform: translateY(-1px);
+}
+
+.nav-link--pill.active {
+    background: #0b0b0f;
+    color: #fff;
+    border-color: #0b0b0f;
+    box-shadow: 0 10px 20px rgba(11, 11, 15, 0.25);
+}
+
+.topbar-meta {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .user-email {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--muted);
     word-break: break-word;
 }
 
 .logout {
-    color: #fff;
+    color: var(--text);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1.5px solid #d9e2f2;
+    background: #fff;
 }
 
 .content {
     flex: 1;
-    padding: 40px clamp(16px, 4vw, 56px);
+    padding: 24px clamp(16px, 4vw, 56px) 40px;
 }
 
 .content--centered {
@@ -482,9 +501,9 @@ select:focus {
 }
 
 @media (max-width: 1024px) {
-    .sidebar {
-        width: 220px;
-        padding: 28px 20px;
+    .topbar {
+        flex-wrap: wrap;
+        gap: 12px;
     }
 
     .split {
@@ -493,35 +512,19 @@ select:focus {
 }
 
 @media (max-width: 860px) {
-    .app-shell {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 16px;
-    }
-
     .brand {
-        flex: 1 1 100%;
+        flex: 1 1 auto;
     }
 
     .nav {
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(120px, 1fr);
         width: 100%;
-        overflow: auto;
+        overflow-x: auto;
+        padding-bottom: 4px;
     }
 
-    .sidebar-footer {
-        margin-top: 0;
-        flex: 1 1 100%;
-        display: flex;
+    .topbar-meta {
+        width: 100%;
         justify-content: space-between;
-        align-items: center;
     }
 
     .content {
@@ -532,4 +535,3 @@ select:focus {
         grid-template-columns: 1fr;
     }
 }
-
