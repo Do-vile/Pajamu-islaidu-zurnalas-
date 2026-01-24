@@ -1,13 +1,17 @@
 FROM php:8.3-cli
 
+# Install SQLite dependencies
+RUN apt-get update \
+    && apt-get install -y sqlite3 libsqlite3-dev \
+    && docker-php-ext-install pdo_sqlite \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
-
-RUN docker-php-ext-install pdo_sqlite
-
 COPY . /app
 
-RUN mkdir -p /app/data \
-    && chmod -R 777 /app/data
+# Ensure SQLite directory exists and is writable
+RUN mkdir -p /app/data && chmod -R 777 /app/data
 
 ENV PORT=10000
 EXPOSE 10000
