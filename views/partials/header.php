@@ -10,19 +10,19 @@
 <body>
 <div class="app-shell">
     <?php if ($user): ?>
-        <aside class="sidebar">
+        <header class="topbar">
             <div class="brand">Pajamų ir išlaidų žurnalas</div>
-            <nav class="nav">
-                <a class="nav-link <?= ($activePage ?? '') === 'dashboard' ? 'active' : '' ?>" href="/?page=dashboard">Bendra</a>
-                <a class="nav-link <?= ($activePage ?? '') === 'documents' ? 'active' : '' ?>" href="/?page=documents">Dokumentai</a>
-                <a class="nav-link <?= ($activePage ?? '') === 'journal' ? 'active' : '' ?>" href="/?page=journal">Žurnalas</a>
-                <a class="nav-link <?= ($activePage ?? '') === 'occupancy' ? 'active' : '' ?>" href="/?page=occupancy">Užimtumas</a>
+            <nav class="nav nav--pills">
+                <a class="nav-link nav-link--pill <?= ($activePage ?? '') === 'dashboard' ? 'active' : '' ?>" href="/?page=dashboard">Bendra</a>
+                <a class="nav-link nav-link--pill <?= ($activePage ?? '') === 'documents' ? 'active' : '' ?>" href="/?page=documents">Dokumentai</a>
+                <a class="nav-link nav-link--pill <?= ($activePage ?? '') === 'journal' ? 'active' : '' ?>" href="/?page=journal">Žurnalas</a>
+                <a class="nav-link nav-link--pill <?= ($activePage ?? '') === 'occupancy' ? 'active' : '' ?>" href="/?page=occupancy">Užimtumas</a>
             </nav>
-            <div class="sidebar-footer">
+            <div class="topbar-meta">
                 <div class="user-email"><?= htmlspecialchars($user['email'], ENT_QUOTES) ?></div>
                 <a class="logout" href="/?action=logout">Atsijungti</a>
             </div>
-        </aside>
+        </header>
     <?php endif; ?>
 
     <main class="content <?= $user ? '' : 'content--centered' ?>">
