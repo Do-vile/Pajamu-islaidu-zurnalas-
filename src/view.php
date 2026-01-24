@@ -29,4 +29,3 @@ function render(string $view, array $params = []): void
     extract($params, EXTR_SKIP);
     require __DIR__ . '/../views/' . $view . '.php';
 }
-
