@@ -3,6 +3,13 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../src/view.php';
 require_once __DIR__ . '/../src/entries.php';
+// ✅ CSS serve'inam per PHP (kad Render visada atiduotų kaip text/css)
+$reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+if ($reqPath === '/styles.css') {
+    header('Content-Type: text/css; charset=UTF-8');
+    readfile(__DIR__ . '/styles.css');
+    exit;
+}
 
 
 start_session();
