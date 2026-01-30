@@ -6,10 +6,7 @@ require_once __DIR__ . '/auth.php';
 function flash_set(string $type, string $message): void
 {
     start_session();
-    $_SESSION['flash'] = [
-        'type' => $type,
-        'message' => $message,
-    ];
+    $_SESSION['flash'] = ['type' => $type, 'message' => $message];
 }
 
 function flash_get(): ?array
@@ -17,7 +14,6 @@ function flash_get(): ?array
     start_session();
     $flash = $_SESSION['flash'] ?? null;
     unset($_SESSION['flash']);
-
     return is_array($flash) ? $flash : null;
 }
 
