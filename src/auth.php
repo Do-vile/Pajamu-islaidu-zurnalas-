@@ -5,7 +5,7 @@ require_once __DIR__ . '/db.php';
 
 function start_session(): void
 {
-    if (session_status() !== PHP_SESSION_ACTIVE) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start([
             'cookie_httponly' => true,
             'cookie_samesite' => 'Lax',
@@ -19,12 +19,12 @@ function current_user(): ?array
     start_session();
 
     $userId = $_SESSION['user_id'] ?? null;
-    if (!is_int($userId) && !ctype_digit((string) $userId)) {
+    if (!is_int($userId) && !ctype_digit((string)$userId)) {
         return null;
     }
 
     $stmt = db()->prepare('SELECT id, email, created_at FROM users WHERE id = :id');
-    $stmt->execute([':id' => (int) $userId]);
+    $stmt->execute([':id' => (int)$userId]);
     $user = $stmt->fetch();
 
     return $user ?: null;
@@ -37,7 +37,6 @@ function require_auth(): array
         header('Location: /?page=login');
         exit;
     }
-
     return $user;
 }
 
@@ -59,7 +58,7 @@ function login_user(string $email, string $password): ?string
 
     start_session();
     session_regenerate_id(true);
-    $_SESSION['user_id'] = (int) $user['id'];
+    $_SESSION['user_id'] = (int)$user['id'];
 
     return null;
 }
@@ -85,6 +84,8 @@ function register_user(string $email, string $password, string $passwordConfirm)
     }
 
     $pdo = db();
+
+    // ar jau egzistuoja
     $stmt = $pdo->prepare('SELECT id FROM users WHERE email = :email');
     $stmt->execute([':email' => $email]);
     if ($stmt->fetch()) {
@@ -101,7 +102,7 @@ function register_user(string $email, string $password, string $passwordConfirm)
 
     start_session();
     session_regenerate_id(true);
-    $_SESSION['user_id'] = (int) $pdo->lastInsertId();
+    $_SESSION['user_id'] = (int)$pdo->lastInsertId();
 
     return null;
 }
@@ -109,6 +110,7 @@ function register_user(string $email, string $password, string $passwordConfirm)
 function logout_user(): void
 {
     start_session();
+
     $_SESSION = [];
 
     if (ini_get('session.use_cookies')) {
@@ -118,3 +120,4 @@ function logout_user(): void
 
     session_destroy();
 }
+
