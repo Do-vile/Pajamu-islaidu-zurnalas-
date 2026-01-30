@@ -1,7 +1,1 @@
-services:
-  - type: web
-    name: pajamu-islaidu-zurnalas
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
-    autoDeploy: true
+startCommand: php -S 0.0.0.0:$PORT -t public public/router.php
