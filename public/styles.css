@@ -535,3 +535,51 @@ select:focus {
         grid-template-columns: 1fr;
     }
 }
+/* ===== TOP NAV PILL BUTTONS (override) ===== */
+
+/* Navigacijos konteineris */
+.nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Pagrindiniai mygtukai (Bendra / Dokumentai / Žurnalas / Užimtumas) */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 18px;
+  border-radius: 9999px;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+
+  text-decoration: none;
+  font-weight: 700;
+  color: #111827;
+
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover */
+.nav-link:hover {
+  background: #f3f4f6;
+}
+
+/* Aktyvus mygtukas (juodas) */
+.nav-link.active {
+  background: #111827;
+  border-color: #111827;
+  color: #ffffff;
+}
+
+/* Mobile – kad nesusispaustų */
+@media (max-width: 600px) {
+  .nav-link {
+    padding: 9px 14px;
+    font-size: 14px;
+  }
+}
